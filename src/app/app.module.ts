@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TrainingComponent } from './training.component';
+import { TrainingService } from './training.service';
+import { AppRoutingModule } from './app-routing.module';
 @NgModule({
     declarations: [
         AppComponent,
@@ -13,9 +15,10 @@ import { TrainingComponent } from './training.component';
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule
+        HttpModule,
+        AppRoutingModule
     ],
-    providers: [],
+    providers: [TrainingService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
