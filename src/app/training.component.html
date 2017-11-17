@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-4">
               <ul class="training-info">
-                <li *ngFor="let info of training.items[training.curIndex-1].infos" [ngClass]="{'text-danger':info.type == 0,'text-success':info.type == 1}">
+                <li *ngFor="let info of training.items[training.curIndex-1].infos" [ngClass]="{'text-danger':info.value == 0,'text-success':info.value == 1}">
                   <span>{{info.content}}</span>
                 </li>
               </ul>

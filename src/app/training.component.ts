@@ -46,7 +46,7 @@ export class TrainingComponent implements OnInit {
             const infos = this.training.items[this.training.curIndex - 1].infos;
             if (infos && infos.length) {
                 for (let i = 0; i < infos.length; i++) {
-                    infos[i].type = 1;
+                    infos[i].value = 1;
                 }
             }
         }, 30000);

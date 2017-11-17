@@ -1,6 +1,6 @@
 export class Information {
     content: string;
-    type: number;
+    value: number;
 };
 
 export class TrainingItem {

@@ -7,7 +7,7 @@ import { TrainingComponent } from './training.component';
 const routes: Routes = [
     { path: '', redirectTo: '/app', pathMatch: 'full' },
     { path: 'app', component: AppComponent },
-    { path: 'training/:index', component: TrainingComponent }
+    { path: 'training/:id/:index', component: TrainingComponent }
 ];
 
 @NgModule({
