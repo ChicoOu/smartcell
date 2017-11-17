@@ -14,7 +14,7 @@ export const TRAINING_ITEMS: TrainingItem[] = [
     {
         no: 1,
         name: '数控车床上电',
-        imgs: ['/assets/img/t1i101.png', '/assets/img/t1i102.png', '/assets/img/t1i1p3.png'],
+        imgs: ['/assets/img/t1i101.png', '/assets/img/t1i102.png', '/assets/img/t1i103.png'],
         infos: [INFORMATIONS[0]],
         videoURL: '',
         helpURL: ''
@@ -62,7 +62,7 @@ export const TRAINING_ITEMS: TrainingItem[] = [
     {
         no: 1,
         name: '数控铣床上电',
-        imgs: ['/assets/img/t2i101.png', '/assets/img/t2i102.png', '/assets/img/t2i1p3.png'],
+        imgs: ['/assets/img/t2i101.png', '/assets/img/t2i102.png', '/assets/img/t2i103.png'],
         infos: [INFORMATIONS[0]],
         videoURL: '',
         helpURL: ''
@@ -111,13 +111,50 @@ export const TRAINING_ITEMS: TrainingItem[] = [
 
 export const TRAININGS: Training[] = [
     {
+        no: 1,
         title: '数控车床单元',
         items: [TRAINING_ITEMS[0], TRAINING_ITEMS[1], TRAINING_ITEMS[2], TRAINING_ITEMS[3], TRAINING_ITEMS[4], TRAINING_ITEMS[5]],
         splashImgURL: '/assets/img/t1splash.png',
         curIndex: -1
     },
     {
+        no: 2,
         title: '数控铣床单元',
+        items: [TRAINING_ITEMS[6], TRAINING_ITEMS[7], TRAINING_ITEMS[8], TRAINING_ITEMS[9], TRAINING_ITEMS[10], TRAINING_ITEMS[11]],
+        splashImgURL: '/assets/img/t2splash.png',
+        curIndex: -1
+    },
+    {
+        no: 3,
+        title: '智能检测单元',
+        items: [TRAINING_ITEMS[6], TRAINING_ITEMS[7], TRAINING_ITEMS[8], TRAINING_ITEMS[9], TRAINING_ITEMS[10], TRAINING_ITEMS[11]],
+        splashImgURL: '/assets/img/t2splash.png',
+        curIndex: -1
+    },
+    {
+        no: 4,
+        title: '移动机器人单元',
+        items: [TRAINING_ITEMS[6], TRAINING_ITEMS[7], TRAINING_ITEMS[8], TRAINING_ITEMS[9], TRAINING_ITEMS[10], TRAINING_ITEMS[11]],
+        splashImgURL: '/assets/img/t2splash.png',
+        curIndex: -1
+    },
+    {
+        no: 5,
+        title: '整线简明操作',
+        items: [TRAINING_ITEMS[6], TRAINING_ITEMS[7], TRAINING_ITEMS[8], TRAINING_ITEMS[9], TRAINING_ITEMS[10], TRAINING_ITEMS[11]],
+        splashImgURL: '/assets/img/t2splash.png',
+        curIndex: -1
+    },
+    {
+        no: 6,
+        title: '结果',
+        items: [TRAINING_ITEMS[6], TRAINING_ITEMS[7], TRAINING_ITEMS[8], TRAINING_ITEMS[9], TRAINING_ITEMS[10], TRAINING_ITEMS[11]],
+        splashImgURL: '/assets/img/t2splash.png',
+        curIndex: -1
+    },
+    {
+        no: 7,
+        title: '考核',
         items: [TRAINING_ITEMS[6], TRAINING_ITEMS[7], TRAINING_ITEMS[8], TRAINING_ITEMS[9], TRAINING_ITEMS[10], TRAINING_ITEMS[11]],
         splashImgURL: '/assets/img/t2splash.png',
         curIndex: -1

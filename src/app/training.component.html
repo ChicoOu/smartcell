@@ -1,11 +1,61 @@
-<div>
-  <h2>{{training.title}}</h2>
+<div class="head">
+  <h2>{{title}}</h2>
 </div>
-<div>
+<div class="content">
   <div class="col-md-2">
-
+    <div class="list-group">
+      <button type="button" (click)="onTrainingItemClicked(item)" class="btn" *ngFor="let item of training?.items" [ngClass]="{'btn-default':item.no == 1 && training.curIndex == -1,'btn-primary':item.no == training.curIndex,'btn-danger':item.no != training.curIndex && (item.no != 1 || item.no == 1 && training.curIndex != -1)}">
+        {{item.no + ". " + item.name}}
+      </button>
+    </div>
   </div>
   <div class="col-md-10">
-
+    <div class="row main-panel">
+      <div class="col-md-9">
+        <div *ngIf="training != null && training?.curIndex == -1; then splashBlock else stepBlock"></div>
+        <ng-template #splashBlock>
+          <img [src]="training?.splashImgURL" class="full">
+        </ng-template>
+        <ng-template #stepBlock>
+          <div>
+            <div class="col-md-8">
+              <img [src]="img" *ngFor="let img of training?.items[training?.curIndex - 1].imgs" [ngClass]="{'full':training.items[training.curIndex-1].imgs.length == 1,'vsize2':training.items[training.curIndex-1].imgs.length == 2, 'vsize3':training.items[training.curIndex-1].imgs.length==3}">
+            </div>
+            <div class="col-md-4">
+              <ul class="training-info">
+                <li *ngFor="let info of training.items[training.curIndex-1].infos" [ngClass]="{'text-danger':info.type == 0,'text-success':info.type == 1}">
+                  <span>{{info.content}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn" [ngClass]="{'btn-danger':training.curIndex==-1, 'btn-info':training.curIndex != -1}">
+          教学视频
+        </button>
+        <button type="button" class="btn" [ngClass]="{'btn-danger':training.curIndex==-1, 'btn-info':training.curIndex != -1}">
+          帮助
+        </button>
+        <div class="op-panel">
+          <button type="button" class="btn" [ngClass]="{'btn-danger':training.curIndex==-1, 'btn-primary':training.curIndex != -1}">
+            确认
+          </button>
+          <button type="button" class="btn" [ngClass]="{'btn-danger':training.curIndex==-1, 'btn-default':training.curIndex != -1}">
+            下一步
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row step-panel">
+      <div class="process-bar">
+        <ul>
+          <li class="size7" *ngFor="let item of trainings" [ngClass]="{'selected':item.no == (index+1),'prev':item.no == index,'pprev':item.no < index,'next':item.no == (index+2), 'last': item.no != (index+1) && item.no == 7}">
+            <span>{{item.title}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

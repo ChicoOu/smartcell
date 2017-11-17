@@ -1,0 +1,186 @@
+.head {
+  text-align: center;
+  height: 60px;
+  background-color: #2f383f;
+  color: white
+}
+
+.head h2 {
+  margin: 0;
+  padding: 0;
+  line-height: 60px;
+}
+
+div.col-md-2,
+div.col-md-3,
+div.col-md-9,
+div.col-md-10 {
+  padding: 0;
+}
+
+.content {
+  height: calc(100vh - 60px);
+  background-color: #e7eaef;
+}
+
+div.list-group {
+  padding: 0;
+  margin: 0;
+}
+
+div.col-md-3 button {
+  text-align: center;
+}
+
+div.col-md-3 {
+  height: calc(90vh - 80px);
+  background-color: white
+}
+
+button {
+  border-radius: 0;
+  height: 15vh;
+  line-height: 15vh;
+  font-size: 1.5em;
+  text-align: left;
+  width: 100%
+}
+
+div.row {
+  padding: 0;
+  margin: 0;
+}
+
+.op-panel {
+  position: absolute;
+  bottom: 0;
+  width: 100%
+}
+
+div.op-panel button {
+  width: 100%;
+}
+
+.main-panel {
+  height: calc(90vh - 80px)
+}
+
+.step-panel {
+  border-top: 1px solid lightgray;
+  height: 78px;
+  background-color: white;
+  padding: 18px 5px !important
+}
+
+img.full {
+  width: 100%;
+  height: calc(90vh - 80px);
+}
+
+img.vsize2 {
+  width: 100%;
+  height: calc(45vh - 40px);
+}
+
+img.vsize3 {
+  width: 100%;
+  height: calc(30vh - 26.67px);
+}
+
+.training-info {
+  margin: 20px 0;
+  font-size: 1.5em;
+}
+
+.process-bar {
+  overflow: hidden;
+  /*border-top: 1px solid #e7e7eb;
+  border-bottom: 1px solid #e7e7eb;*/
+}
+
+.process-bar ul {
+  padding: 0;
+  margin: 0;
+  list-style: none
+}
+
+.process-bar li {
+  float: left;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  color: #747474;
+  background: #ffffff url("/assets/img/bg_process.png") no-repeat;
+}
+
+.process-bar li.last {
+  float: none;
+  width: auto;
+  overflow: hidden;
+  /*border-right: 1px solid #e7e7eb;*/
+}
+
+.process-bar li.pprev {
+  background-position: right 0;
+}
+
+.process-bar li.pprev span {
+  padding-right: 14px;
+}
+
+.process-bar li.prev {
+  background-position: right -44px;
+}
+
+.process-bar li.prev span {
+  padding-right: 14px;
+}
+
+.process-bar li.selected {
+  color: #fff;
+  background: #44b549;
+}
+
+.process-bar li.next {
+  background-position: left -88px;
+}
+
+.process-bar li.next span {
+  padding-left: 14px;
+}
+
+.process-bar li.nnext {
+  background-position: left 0;
+}
+
+.process-bar li.nnext span {
+  padding-left: 14px;
+}
+
+.process-bar li span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+.process-bar .size2 {
+  width: 50%;
+}
+
+.process-bar .size3 {
+  width: 33.3%;
+}
+
+.process-bar .size4 {
+  width: 25%;
+}
+
+.process-bar .size7 {
+  width: 14.2857%;
+}
+
+.process-cnt {
+  padding: 30px;
+}
