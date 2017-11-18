@@ -7,10 +7,13 @@ import { AppComponent } from './app.component';
 import { TrainingComponent } from './training.component';
 import { TrainingService } from './training.service';
 import { AppRoutingModule } from './app-routing.module';
+import {ModalComponent} from './util/modal.component';
+
 @NgModule({
     declarations: [
         AppComponent,
-        TrainingComponent
+        TrainingComponent,
+        ModalComponent
     ],
     imports: [
         BrowserModule,

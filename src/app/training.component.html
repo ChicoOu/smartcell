@@ -4,7 +4,8 @@
 <div class="content">
   <div class="col-md-2">
     <div class="list-group">
-      <button type="button" (click)="onTrainingItemClicked(item)" class="btn" *ngFor="let item of training?.items" [ngClass]="{'btn-default':item.no == 1 && training.curIndex == -1,'btn-primary':item.no == training.curIndex,'btn-danger':item.no != training.curIndex && (item.no != 1 || item.no == 1 && training.curIndex != -1)}">
+      <button type="button" [disabled]="!((training?.curIndex == -1 && item.no == 1) || (passed && item.no == (training?.curIndex + 1)))"
+        (click)="onTrainingItemClicked(item)" class="btn big-button" *ngFor="let item of training?.items" [ngClass]="{'btn-default':item.no == 1 && training.curIndex == -1,'btn-primary':item.no == training.curIndex,'btn-danger':item.no != training.curIndex && (item.no != 1 || item.no == 1 && training.curIndex != -1)}">
         {{item.no + ". " + item.name}}
       </button>
     </div>
@@ -12,7 +13,7 @@
   <div class="col-md-10">
     <div class="row main-panel">
       <div class="col-md-9">
-        <div *ngIf="training != null && training?.curIndex == -1; then splashBlock else stepBlock"></div>
+        <div *ngIf="curItem == null; then splashBlock else stepBlock"></div>
         <ng-template #splashBlock>
           <img [src]="training?.splashImgURL" class="full">
         </ng-template>
@@ -23,7 +24,7 @@
             </div>
             <div class="col-md-4">
               <ul class="training-info">
-                <li *ngFor="let info of training.items[training.curIndex-1].infos" [ngClass]="{'text-danger':info.value == 0,'text-success':info.value == 1}">
+                <li *ngFor="let info of training.items[training.curIndex-1].infos" [ngClass]="{'text-danger':!passed,'text-success':passed}">
                   <span>{{info.content}}</span>
                 </li>
               </ul>
@@ -32,18 +33,18 @@
         </ng-template>
       </div>
       <div class="col-md-3">
-        <button type="button" class="btn" [ngClass]="{'btn-danger':training.curIndex==-1, 'btn-info':training.curIndex != -1}">
+        <a [href]='curItem?.videoURL' class="btn big-button" [ngClass]="{'disabled':curItem == null, 'btn-danger':curItem==null, 'btn-info':curItem != null}">
           教学视频
-        </button>
-        <button type="button" class="btn" [ngClass]="{'btn-danger':training.curIndex==-1, 'btn-info':training.curIndex != -1}">
+        </a>
+        <a [href]='curItem?.helpURL' class="btn big-button" [ngClass]="{'disabled':curItem == null, 'btn-danger':curItem==null, 'btn-info':curItem != null}">
           帮助
-        </button>
+        </a>
         <div class="op-panel">
-          <button type="button" class="btn" [ngClass]="{'btn-danger':training.curIndex==-1, 'btn-primary':training.curIndex != -1}">
+          <button (click)="onConfirm(dlgWarning, dlgConfirmation)" type="button" class="btn big-button" [ngClass]="{'btn-danger':curItem == null, 'btn-primary':curItem != null}">
             确认
           </button>
-          <button type="button" class="btn" [ngClass]="{'btn-danger':training.curIndex==-1, 'btn-default':training.curIndex != -1}">
-            下一步
+          <button (click)="onNext()" [disabled]="!passed" type="button" class="btn big-button" [ngClass]="{'btn-danger':curItem == null, 'btn-default':curItem != null}">
+            {{stepTitle}}
           </button>
         </div>
       </div>
@@ -59,3 +60,35 @@
     </div>
   </div>
 </div>
+
+<app-modal #dlgWarning>
+  <div class="app-modal-header">
+    提示信息
+  </div>
+  <div class="app-modal-body">
+    <p class="text-danger">未达成实训目标，请重试！</p>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="dlgWarning.hide()">关闭</button>
+  </div>
+</app-modal>
+
+<app-modal #dlgConfirmation>
+  <div class="app-modal-header">
+    教师确定
+  </div>
+  <div class="app-modal-body">
+    <form>
+      <div class="form-group">
+        <label for="teacherPassword">密码</label>
+        <p class='text-danger'>{{errorInfo}}</p>
+        <input [(ngModel)]='teacherPwd' name="password" type="password" class="form-control" id="teacherPassword" placeholder="输入密码"
+          #password>
+      </div>
+    </form>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="dlgConfirmation.hide()">关闭</button>
+    <button type="button" (click)="confirmPassword(dlgConfirmation)" class="btn btn-primary">确定</button>
+  </div>
+</app-modal>

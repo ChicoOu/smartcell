@@ -10,4 +10,5 @@ export class TrainingItem {
     infos: Information[];
     videoURL: string;
     helpURL: string;
+    devCommTimeout: number;
 };
