@@ -12,25 +12,182 @@
   </div>
   <div class="col-md-10">
     <div class="row main-panel">
-      <div class="col-md-9">
-        <div *ngIf="curItem == null; then splashBlock else stepBlock"></div>
-        <ng-template #splashBlock>
-          <img [src]="training?.splashImgURL" class="full">
-        </ng-template>
-        <ng-template #stepBlock>
-          <div>
-            <div class="col-md-8">
-              <img [src]="img" *ngFor="let img of training?.items[training?.curIndex - 1].imgs" [ngClass]="{'full':training.items[training.curIndex-1].imgs.length == 1,'vsize2':training.items[training.curIndex-1].imgs.length == 2, 'vsize3':training.items[training.curIndex-1].imgs.length==3}">
-            </div>
-            <div class="col-md-4">
-              <ul class="training-info">
-                <li *ngFor="let info of training.items[training.curIndex-1].infos" [ngClass]="{'text-danger':!passed,'text-success':passed}">
-                  <span>{{info.content}}</span>
-                </li>
-              </ul>
-            </div>
+      <div class="col-md-9" [ngSwitch]="training?.category">
+        <div *ngSwitchCase="1" class="scroll-table">
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>
+                  项目单元
+                </th>
+                <th>
+                  项目内容
+                </th>
+                <th>
+                  考核内容
+                </th>
+                <th>
+                  结果
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of resultNodes">
+                <td>{{item.unit}}</td>
+                <td>{{item.content}}</td>
+                <td>{{item.node.name}}</td>
+                <td>{{item.node.content}}</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+        <div *ngSwitchCase="2" class="scroll-table">
+          <table class="table">
+            <tr>
+              <td>
+                班级
+              </td>
+              <td>
+                {{report.student.className}}
+              </td>
+              <td>
+                学号
+              </td>
+              <td>
+                {{report.student.id}}
+              </td>
+              <td>
+                姓名
+              </td>
+              <td>
+                {{report.student.name}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                设备
+              </td>
+              <td>
+                {{report.dev}}
+              </td>
+              <td>
+                项目
+              </td>
+              <td>
+                {{report.proj}}
+              </td>
+              <td>
+                操作时间
+              </td>
+              <td>
+                {{report.opTime}}
+              </td>
+            </tr>
+          </table>
+
+          <table class="table table-striped table-hover table-bordered">
+            <tr>
+              <td colspan="3" style="text-align:center">
+                {{report.attitudeUnit.title + '(' + report.attitudeUnit.perc + '%)'}}
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">
+                考核标准
+              </th>
+              <th>
+                分数
+              </th>
+            </tr>
+            <tr *ngFor="let item of report.attitudeUnit.subjects">
+              <td colspan="2">
+                {{item.content + '(' + item.perc + '%)'}}
+              </td>
+              <td>
+                {{item.value}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" style="text-align:center">
+                {{report.trainingUnit.title + '(' + report.trainingUnit.perc + '%)'}}
+              </td>
+            </tr>
+            <tr>
+              <th>
+                单元
+              </th>
+              <th>
+                考核标准
+              </th>
+              <th>
+                分数
+              </th>
+            </tr>
+            <tr *ngFor="let unit of trainingReport">
+              <td>
+                {{unit.unit}}
+              </td>
+              <td>
+                {{unit.subject.content + '(' + unit.subject.perc + '%)'}}
+              </td>
+              <td>
+                {{unit.subject.value}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" style="text-align:center">
+                {{report.otherUnit.title + '(' + report.otherUnit.perc + '%)'}}
+              </td>
+            </tr>
+            <tr>
+              <th colspan="2">
+                考核标准
+              </th>
+              <th>
+                分数
+              </th>
+            </tr>
+            <tr *ngFor="let item of report.otherUnit.subjects">
+              <td colspan="2">
+                {{item.content + '(' + item.perc + '%)'}}
+              </td>
+              <td>
+                {{item.value}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                总得分
+              </td>
+              <td>
+                {{report.total}}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div *ngSwitchDefault>
+          <div *ngIf="curItem == null; then splashBlock else stepBlock">
+
           </div>
-        </ng-template>
+          <ng-template #splashBlock>
+            <img [src]="training?.splashImgURL" class="full">
+          </ng-template>
+          <ng-template #stepBlock>
+            <div>
+              <div class="col-md-8">
+                <img [src]="img" *ngFor="let img of training?.items[training?.curIndex - 1].imgs" [ngClass]="{'full':training.items[training.curIndex-1].imgs.length == 1,'vsize2':training.items[training.curIndex-1].imgs.length == 2, 'vsize3':training.items[training.curIndex-1].imgs.length==3}">
+              </div>
+              <div class="col-md-4">
+                <ul class="training-info">
+                  <li *ngFor="let info of training.items[training.curIndex-1].infos" [ngClass]="{'text-danger':!passed,'text-success':passed}">
+                    <span>{{info.content}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </ng-template>
+        </div>
       </div>
       <div class="col-md-3">
         <a [href]='curItem?.videoURL' class="btn big-button" [ngClass]="{'disabled':curItem == null, 'btn-danger':curItem==null, 'btn-info':curItem != null}">

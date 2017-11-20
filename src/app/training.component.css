@@ -1,6 +1,6 @@
 .head {
   text-align: center;
-  height: 60px;
+  height: 10vh;
   background-color: #2f383f;
   color: white
 }
@@ -19,8 +19,14 @@ div.col-md-10 {
 }
 
 .content {
-  height: calc(100vh - 60px);
+  height: 90vh;
   background-color: #e7eaef;
+}
+
+div.content div.col-md-2 {
+  overflow-y: scroll;
+  height: 90vh;
+  background-color: white
 }
 
 div.list-group {
@@ -90,6 +96,12 @@ img.vsize3 {
 .training-info {
   margin: 20px 0;
   font-size: 1.5em;
+}
+
+.scroll-table {
+  width: 100%;
+  height: calc(90vh - 80px);
+  overflow-y: scroll
 }
 
 .process-bar {

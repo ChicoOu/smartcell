@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Training } from './training';
+import { Training, TRAINING_ITEM_CATEGORY } from './training';
 import { TrainingService } from './training.service';
 import { TrainingItem } from 'app/trainingitem';
 import { ModalComponent } from './util/modal.component';
-import { transition } from '._@angular_core@4.4.6@@angular/core/src/animation/dsl';
+import { Result, ExamNode } from './result';
+import { ExamReport } from './exam';
 
 @Component({
     selector: 'app-training',
@@ -14,6 +15,10 @@ import { transition } from '._@angular_core@4.4.6@@angular/core/src/animation/ds
 export class TrainingComponent implements OnInit {
     training: Training;
     trainings: Training[];
+    results: Result[];
+    resultNodes: any[];
+    report: ExamReport;
+    trainingReport: any[];
     curItem: TrainingItem;
     no: number;
     index: number;
@@ -32,12 +37,14 @@ export class TrainingComponent implements OnInit {
         this.teacherPwd = '';
         this.stepTitle = '下一步';
         this.curItem = null;
+        this.resultNodes = [];
+        this.trainingReport = [];
     }
 
     reset(index: number, no: number): void {
         this.index = index;
         this.no = no;
-        this.trainingService.getTrainings().then(trainings => {
+        this.trainingService.getTrainings(no).then(trainings => {
             if (this.index >= 0 && this.index < trainings.length) {
                 this.trainings = trainings;
                 this.training = trainings[this.index];
@@ -46,7 +53,45 @@ export class TrainingComponent implements OnInit {
             else {
                 this.training = null;
             }
+
+            if (this.training.category === TRAINING_ITEM_CATEGORY.EXAM ||
+                this.training.category === TRAINING_ITEM_CATEGORY.RESULT) {
+                this.passed = true;
+                this.timeout = true;
+            }
+
+            if (this.index >= trainings.length - 1) {
+                this.stepTitle = '完成';
+            }
         });
+        this.trainingService.getTrainingResult(no).then(results => {
+            this.results = results;
+            results.forEach(result => {
+                result.contents.forEach(content => {
+                    content.nodes.forEach(node => {
+                        this.resultNodes.push({
+                            node: node,
+                            unit: result.name,
+                            content: content.name,
+                            span1: result.contents.length * content.nodes.length,
+                            span2: content.nodes.length
+                        });
+                    })
+                });
+            });
+        });
+        this.trainingService.getTrainingReport(no).then(report => {
+            this.report = report;
+            report.trainingUnit.subUnits.forEach(item => {
+                item.subjects.forEach(subject => {
+                    this.trainingReport.push({
+                        unit: item.title,
+                        subject: subject
+                    });
+                })
+            });
+        });
+
         this.trainingService.curTrainingIndex = this.index;
     }
 
@@ -59,7 +104,7 @@ export class TrainingComponent implements OnInit {
     onTrainingItemClicked(item: TrainingItem): void {
         this.training.curIndex = item.no;
         this.curItem = this.training.items[item.no - 1];
-        if (this.training.curIndex < this.training.items.length) {
+        if (this.training.no < this.trainings.length) {
             this.stepTitle = '下一步';
         }
         else {
@@ -129,7 +174,7 @@ export class TrainingComponent implements OnInit {
         if (this.training.curIndex < this.training.items.length) {
             this.training.curIndex++;
             this.curItem = this.training.items[this.training.curIndex - 1];
-            if (this.training.curIndex < this.training.items.length) {
+            if (this.training.no < this.trainings.length) {
                 this.stepTitle = '下一步';
             }
             else {
