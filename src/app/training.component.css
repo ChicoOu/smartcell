@@ -96,6 +96,8 @@ img.vsize3 {
 .training-info {
   margin: 20px 0;
   font-size: 1.5em;
+  height: calc(90vh - 100px);
+  overflow-y: scroll;
 }
 
 .scroll-table {
@@ -106,6 +108,7 @@ img.vsize3 {
 
 .process-bar {
   overflow: hidden;
+  width: 100%;
   /*border-top: 1px solid #e7e7eb;
   border-bottom: 1px solid #e7e7eb;*/
 }
@@ -191,6 +194,10 @@ img.vsize3 {
 
 .process-bar .size7 {
   width: 14.2857%;
+}
+
+.process-bar .size8 {
+  width: 12.5% !important;
 }
 
 .process-cnt {

@@ -66,30 +66,34 @@ export class TrainingComponent implements OnInit {
         });
         this.trainingService.getTrainingResult(no).then(results => {
             this.results = results;
-            results.forEach(result => {
-                result.contents.forEach(content => {
-                    content.nodes.forEach(node => {
-                        this.resultNodes.push({
-                            node: node,
-                            unit: result.name,
-                            content: content.name,
-                            span1: result.contents.length * content.nodes.length,
-                            span2: content.nodes.length
-                        });
-                    })
+            if( this.results != null ){
+                results.forEach(result => {
+                    result.contents.forEach(content => {
+                        content.nodes.forEach(node => {
+                            this.resultNodes.push({
+                                node: node,
+                                unit: result.name,
+                                content: content.name,
+                                span1: result.contents.length * content.nodes.length,
+                                span2: content.nodes.length
+                            });
+                        })
+                    });
                 });
-            });
+            }
         });
         this.trainingService.getTrainingReport(no).then(report => {
             this.report = report;
-            report.trainingUnit.subUnits.forEach(item => {
-                item.subjects.forEach(subject => {
-                    this.trainingReport.push({
-                        unit: item.title,
-                        subject: subject
-                    });
-                })
-            });
+            if( this.report ){
+                report.trainingUnit.subUnits.forEach(item => {
+                    item.subjects.forEach(subject => {
+                        this.trainingReport.push({
+                            unit: item.title,
+                            subject: subject
+                        });
+                    })
+                });
+            }
         });
 
         this.trainingService.curTrainingIndex = this.index;

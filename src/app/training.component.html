@@ -190,10 +190,10 @@
         </div>
       </div>
       <div class="col-md-3">
-        <a [href]='curItem?.videoURL' class="btn big-button" [ngClass]="{'disabled':curItem == null, 'btn-danger':curItem==null, 'btn-info':curItem != null}">
+        <a target="_blank" [href]='curItem?.videoURL' class="btn big-button" [ngClass]="{'disabled':curItem == null, 'btn-danger':curItem==null, 'btn-info':curItem != null}">
           教学视频
         </a>
-        <a [href]='curItem?.helpURL' class="btn big-button" [ngClass]="{'disabled':curItem == null, 'btn-danger':curItem==null, 'btn-info':curItem != null}">
+        <a target="_blank" [href]='curItem?.helpURL' class="btn big-button" [ngClass]="{'disabled':curItem == null, 'btn-danger':curItem==null, 'btn-info':curItem != null}">
           帮助
         </a>
         <div class="op-panel">
@@ -209,7 +209,7 @@
     <div class="row step-panel">
       <div class="process-bar">
         <ul>
-          <li class="size7" *ngFor="let item of trainings" [ngClass]="{'selected':item.no == (index+1),'prev':item.no == index,'pprev':item.no < index,'next':item.no == (index+2), 'last': item.no != (index+1) && item.no == 7}">
+          <li *ngFor="let item of trainings" [ngClass]="{'size8':trainings.length == 8, 'size7':trainings.length == 7, 'selected':item.no == (index+1),'prev':item.no == index,'pprev':item.no < index,'next':item.no == (index+2), 'last': item.no != (index+1) && item.no == trainings.length}">
             <span>{{item.title}}</span>
           </li>
         </ul>
